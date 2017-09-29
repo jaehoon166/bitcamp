@@ -3,7 +3,7 @@ package bitcamp.java100;
 public class Test12_9T1{
   
   public static void main(String[] age){
-    String name = "a";
+    String name = "윤재훈";
     for(int i=0;i<name.length();i++){
       int uni = name.charAt(i);
       System.out.printf("%02X%n",uni);

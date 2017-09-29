@@ -13,13 +13,17 @@ public class Test13_1{
       eth = 100;
       chi = 100;
 
-      int[] scores = new int[7];
+      String[] cname = {"국어","영어","수학","사회","과학"};
+      int[] scores = new int[5];
       scores[0] = 100;
       scores[1] = 100;
       scores[2] = 100;
       scores[3] = 100;
       scores[4] = 100;
-      scores[5] = 100;
-      scores[6] = 100;
+
+      for(int i=0;i<5;i++){
+        System.out.printf("%s: %d\n", cname[i],scores[i]);
+      }
+      
     }
   }
