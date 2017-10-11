@@ -11,5 +11,14 @@ public class Test15_10 {
     System.out.println(java.lang.Integer.toBinaryString(v1));
     System.out.println(java.lang.Integer.toBinaryString(v2));
     System.out.println(java.lang.Integer.toBinaryString(result));
+    
+    result = v1 | v2;
+    System.out.println(java.lang.Integer.toBinaryString(result));
+    
+    result = v1 ^ v2;
+    System.out.println(java.lang.Integer.toBinaryString(result));
+    
+    result = ~v1;
+    System.out.println(java.lang.Integer.toBinaryString(result));
   }
 }
