@@ -11,13 +11,34 @@ apply plugin: 'java'
 
 // Apply the application plugin to add support for building an application
 apply plugin: 'application'
+apply plugin: 'eclipse'
 
+eclipse {
+  jdt {
+    sourceCompatibility = 9
+    targetCompatibility = 9
+    javaRuntimeName = "JavaSE-9"
+
+    file {
+
+      whenMerged { jdt
+      }
+
+      withProperties { properties ->
+          properties["org.eclipse.jdt.core.compiler.codegen.targetPlatform"] = "9"
+          properties["org.eclipse.jdt.core.compiler.source"] = "9"
+          properties["org.eclipse.jdt.core.compiler.compliance"] = "9"
+      }
+    }
+  }
+}
 compileJava{
       options.encoding = 'UTF-8'
 }
 javadoc{
     options.encoding = "UTF-8"
 }
+
 // In this section you declare where to find the dependencies of your project
 repositories {
     // Use jcenter for resolving your dependencies.
@@ -34,5 +55,5 @@ dependencies {
 }
 
 // Define the main class for the application
-mainClassName = 'Test1'
+mainClassName = 'App'
 
