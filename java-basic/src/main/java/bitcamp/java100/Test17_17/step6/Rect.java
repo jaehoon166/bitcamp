@@ -4,12 +4,12 @@ public class Rect {
     int width;
     int height;
     
-    static float area(Rect r) {
-        return (r.width * r.height) / 10000f;
+    float area() {
+        return (this.width * this.height) / 10000f;
     }
 
-    static float pyeong(Rect r) {
-        return (r.width * r.height) / 10000f / 3.3f;
+    float pyeong() {
+        return (this.width * this.height) / 10000f / 3.3f;
     }
 
 }
