@@ -1,4 +1,4 @@
-package bitcamp.java100;
+package bitcamp.java100.Test18;
 
 public class Test18_6 {
 
@@ -19,8 +19,10 @@ public class Test18_6 {
         
         int startIndex = 0;
         while(matcher.find(startIndex)) {
+            System.out.println(startIndex);
             String matchString = matcher.group();
-            startIndex = matcher.start() + matchString.length();
+            startIndex = matcher.end();
+            
             System.out.println(matchString);
         }
     }
