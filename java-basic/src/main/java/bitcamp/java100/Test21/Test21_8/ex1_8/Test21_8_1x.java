@@ -30,11 +30,11 @@
 // 임꺽정     leem@test.com 1111-1112
 // 안중근      ahn@test.com 1111-1114
 // > 
-package bitcamp.java100.Test21.Test21_8;
+package bitcamp.java100.Test21.Test21_8.ex1_8;
 
 import java.io.Console;
 
-public class Test21_8_2 {
+public class Test21_8_1x {
 
     static Console console;
 
@@ -46,31 +46,39 @@ public class Test21_8_2 {
         }
     }
 
+    static StringBuffer inputUser() {
+        String name = console.readLine("이름? ");
+        StringBuffer ubuf = new StringBuffer();
+        ubuf.append(name);
+
+        String email = console.readLine("이메일? ");
+        ubuf.append(email);
+
+        String phone = console.readLine("전화? ");
+        ubuf.append(phone);
+
+        return ubuf;
+    }
+
+    
+    static void printUsers(StringBuffer buf) {
+        System.out.printf("%s\n", buf);
+    }
+
     public static void main(String[] args) {
+
         prepareConsole();
-        
-        String[] names = new String[3];
-        String[] emails = new String[3];
-        String[] phones = new String[3];
-        
+
+        //users배열을 생성하고 users배열에 user정보 넣기
+        StringBuffer users[] = new StringBuffer[3];
         int cursor = 0;
-        
-        while(cursor < names.length) {
-         // 고객 데이터 입력받기
-            names[cursor] = console.readLine("이름? ");
-            emails[cursor] = console.readLine("이메일? ");
-            phones[cursor] = console.readLine("전화? ");
-            cursor++;
+        for (cursor = 0; cursor < users.length; cursor++) {
+            users[cursor] = inputUser();
         }
-        
-        cursor = 0;
-        while(cursor < names.length) {
-         // 저장된 고객 정보 출력하기
-            System.out.println(names[cursor]);
-            System.out.println(emails[cursor]);
-            System.out.println(phones[cursor]);
-            cursor++;
+
+        //users배열에 있는 user정보 출력
+        for (cursor = 0; cursor < users.length; cursor++) {
+            printUsers(users[cursor]);
         }
-        
     }
 }

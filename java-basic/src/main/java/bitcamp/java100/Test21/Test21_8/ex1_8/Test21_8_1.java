@@ -30,11 +30,11 @@
 // 임꺽정     leem@test.com 1111-1112
 // 안중근      ahn@test.com 1111-1114
 // > 
-package bitcamp.java100.Test21.Test21_8;
+package bitcamp.java100.Test21.Test21_8.ex1_8;
 
 import java.io.Console;
 
-public class Test21_8_1x {
+public class Test21_8_1 {
 
     static Console console;
 
@@ -46,39 +46,15 @@ public class Test21_8_1x {
         }
     }
 
-    static StringBuffer inputUser() {
-        String name = console.readLine("이름? ");
-        StringBuffer ubuf = new StringBuffer();
-        ubuf.append(name);
-
-        String email = console.readLine("이메일? ");
-        ubuf.append(email);
-
-        String phone = console.readLine("전화? ");
-        ubuf.append(phone);
-        
-        return ubuf;
-    }
-    
-    /*static String[] us(String ubuf) {
-        String users[] = new String[10];
-        for(int i = 0; i < 10; i ++) {
-            users[i]=ubuf;
-        }
-        return users;
-        
-    }*/
-    
-    static void printUsers(StringBuffer buf) {
-        System.out.printf("%s\n", buf);
-    }
     public static void main(String[] args) {
-
         prepareConsole();
-
-        
-        StringBuffer buf = inputUser();
-
-        printUsers(buf);
+        // 고객 데이터 입력받기
+        String name = console.readLine("이름? ");
+        String email = console.readLine("이메일? ");
+        String phone = console.readLine("전화? ");
+        // 저장된 고객 정보 출력하기
+        System.out.println(name);
+        System.out.println(email);
+        System.out.println(phone);
     }
 }

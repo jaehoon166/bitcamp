@@ -30,11 +30,11 @@
 // 임꺽정     leem@test.com 1111-1112
 // 안중근      ahn@test.com 1111-1114
 // > 
-package bitcamp.java100.Test21.Test21_8;
+package bitcamp.java100.Test21.Test21_8.ex1_8;
 
 import java.io.Console;
 
-public class Test21_8_4 {
+public class Test21_8_1x2 {
 
     static Console console;
 
@@ -46,40 +46,43 @@ public class Test21_8_4 {
         }
     }
 
+    static String user() {
+        String name = console.readLine("이름? ");
+        StringBuffer ubuf = new StringBuffer();
+        ubuf.append(name);
+
+        String email = console.readLine("이메일? ");
+        ubuf.append(email);
+
+        String phone = console.readLine("전화? ");
+        ubuf.append(phone);
+
+        return ubuf.toString();
+    }
+
+    static void printUsers(String buf) {
+        System.out.printf("%s\n", buf);
+    }
+
     public static void main(String[] args) {
+
         prepareConsole();
 
-        String[] names = new String[100];
-        String[] emails = new String[100];
-        String[] phones = new String[100];
+        // users배열을 생성하고 users배열에 user정보 넣기
+        String users[] = new String[3];
 
-        int cursor = 0;
-
-        while (cursor < names.length) {
-            // 고객 데이터 입력받기
-            String name = console.readLine("이름? ");
-            String email = console.readLine("이메일? ");
-            String phone = console.readLine("전화? ");
+        int usernum = 0;
+        for (usernum = 0; usernum < users.length;) {
+            users[usernum] = user();
             String response = console.readLine("저장하시겠습니까?(y/n)");
-
-            if (response.toLowerCase().equals("y") ||
-                    response.toLowerCase().equals("yes")) {
-                names[cursor] = name;
-                emails[cursor] = email;
-                phones[cursor] = phone;
-                cursor++;
-            }
-
-            response = console.readLine("계속입력하시겠습니까? (y/n)");
-            if (!(response.toLowerCase().equals("y") || 
-                  response.toLowerCase().equals("yes"))) {
-                break;
+            if (response.equals("y")) {
+                usernum++;
             }
         }
 
-        for (int i = 0; i < cursor; i++) {
-            // 저장된 고객 정보 출력하기
-            System.out.printf("%s, %s, %S\n", names[i], emails[i], phones[i]);
+        // users배열에 있는 user정보 출력
+        for (usernum = 0; usernum < users.length; usernum++) {
+            printUsers(users[usernum]);
         }
     }
 }

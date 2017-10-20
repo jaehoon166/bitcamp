@@ -30,11 +30,11 @@
 // 임꺽정     leem@test.com 1111-1112
 // 안중근      ahn@test.com 1111-1114
 // > 
-package bitcamp.java100.Test21.Test21_8;
+package bitcamp.java100.Test21.Test21_8.ex1_8;
 
 import java.io.Console;
 
-public class Test21_8_3 {
+public class Test21_8 {
 
     static Console console;
 
@@ -49,31 +49,34 @@ public class Test21_8_3 {
     public static void main(String[] args) {
         prepareConsole();
 
-        String[] names = new String[100];
-        String[] emails = new String[100];
-        String[] phones = new String[100];
+        String names[] = new String[100];
+        String emails[] = new String[100];
+        String phones[] = new String[100];
 
         int cursor = 0;
 
-        while (cursor < names.length) {
-            // 고객 데이터 입력받기
-            names[cursor] = console.readLine("이름? ");
-            emails[cursor] = console.readLine("이메일? ");
-            phones[cursor] = console.readLine("전화? ");
-            cursor++;
-            String response = console.readLine("계속입력하시겠습니까? (y/n)");
-            if (!(response.toLowerCase().equals("y") ||
-                  response.toLowerCase().equals("yes"))) {
+        for (cursor = 0; cursor < names.length;) {
+            String name = console.readLine("이름? ");
+            String email = console.readLine("이메일? ");
+            String phone = console.readLine("전화? ");
+            
+            String response = console.readLine("저장하시겠습니까?(y/n)");
+            if (response.equals("y") || 
+                response.equals("yes")) {
+                names[cursor] = name;
+                emails[cursor] = email;
+                phones[cursor] = phone;
+                cursor++;
+            }
+            response = console.readLine("계속하시겠습니까?(y/n)");
+            if (!(response.equals("y") ||
+                  response.equals("yes"))) {
                 break;
             }
         }
 
         for (int i = 0; i < cursor; i++) {
-            // 저장된 고객 정보 출력하기
-            System.out.println(names[i]);
-            System.out.println(emails[i]);
-            System.out.println(phones[i]);
+            System.out.printf("%s, %s, %s\n", names[i], emails[i], phones[i]);
         }
-
     }
 }

@@ -30,11 +30,11 @@
 // 임꺽정     leem@test.com 1111-1112
 // 안중근      ahn@test.com 1111-1114
 // > 
-package bitcamp.java100.Test21.Test21_8;
+package bitcamp.java100.Test21.Test21_8.ex1_8;
 
 import java.io.Console;
 
-public class Test21_8_1 {
+public class Test21_8_5 {
 
     static Console console;
 
@@ -46,15 +46,45 @@ public class Test21_8_1 {
         }
     }
 
+    static class Contact{
+        String name;
+        String email;
+        String phone;
+    }
+    
     public static void main(String[] args) {
         prepareConsole();
-        // 고객 데이터 입력받기
-        String name = console.readLine("이름? ");
-        String email = console.readLine("이메일? ");
-        String phone = console.readLine("전화? ");
-        // 저장된 고객 정보 출력하기
-        System.out.println(name);
-        System.out.println(email);
-        System.out.println(phone);
+
+        Contact[] contacts = new Contact[100];
+        
+        int cursor = 0;
+
+        while (cursor < contacts.length) {
+            // 고객 데이터 입력받기
+            Contact contact = new Contact();
+            
+            contact.name = console.readLine("이름? ");
+            contact.email = console.readLine("이메일? ");
+            contact.phone = console.readLine("전화? ");
+            
+            String response = console.readLine("저장하시겠습니까?(y/n)");
+
+            if (response.toLowerCase().equals("y") ||
+                    response.toLowerCase().equals("yes")) {
+                contacts[cursor] = contact;
+                cursor++;
+            }
+
+            response = console.readLine("계속입력하시겠습니까? (y/n)");
+            if (!(response.toLowerCase().equals("y") || 
+                  response.toLowerCase().equals("yes"))) {
+                break;
+            }
+        }
+
+        for (int i = 0; i < cursor; i++) {
+            // 저장된 고객 정보 출력하기
+            System.out.printf("%s, %s, %s\n", contacts[i].name, contacts[i].email, contacts[i].phone);
+        }
     }
 }
