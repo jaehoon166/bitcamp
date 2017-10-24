@@ -32,3 +32,9 @@ public class Test7 {
         new A();
     }
 }
+//method area - class -static
+//Heap - instance (static이 붙지 않은 변수)-new로 만들어져서 Heap에 메로리가 할당
+//static class S{
+//static String s = new String("");-> Method Area에 String 변수의 값이 Heap에 만들어지고 그 주소 값을 Method Area에 만들어진 class 변수 메모리에 넣는다.
+//}
+//stack- 로컬변수
