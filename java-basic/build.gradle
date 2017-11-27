@@ -47,6 +47,8 @@ repositories {
 }
 
 dependencies {
+    // MySQL DBMS - JDBC Driver
+    compile group: 'mysql', name: 'mysql-connector-java', version: '5.1.44'
     // This dependency is found on compile classpath of this component and consumers.
     compile 'com.google.guava:guava:22.0'
 
