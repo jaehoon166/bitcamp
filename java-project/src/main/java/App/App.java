@@ -3,7 +3,6 @@ package App;
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.io.PrintStream;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -34,11 +33,11 @@ public class App {
         MemberController memberController = new MemberController();
         memberController.init();
         controllerMap.put("/member", memberController);
-        
+
         BoardController boardController = new BoardController();
         memberController.init();
         controllerMap.put("/board", boardController);
-        
+
         RoomController roomController = new RoomController();
         memberController.init();
         controllerMap.put("/room", roomController);

@@ -2,7 +2,6 @@ package domain;
 
 import java.sql.Date;
 
-import control.CSVFormatException;
 
 public class Board {
     protected int no;

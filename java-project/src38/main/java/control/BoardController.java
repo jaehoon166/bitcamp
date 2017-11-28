@@ -93,26 +93,36 @@ public class BoardController extends GenericController<Board> {
 
     private void doView(Request request, Response response) {
         PrintWriter out = response.getWriter();
-
         out.println("[게시물 상세 정보]");
 
-        try (Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/studydb", "study", "1111");
-                PreparedStatement pstmt = con
-                        .prepareStatement("select title,conts,regdt,vwcnt from ex_board where no=?");) {
+        try (Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/studydb", "study", "1111");) {
 
-            pstmt.setInt(1, Integer.parseInt(request.getParameter("no")));
+            int no = Integer.parseInt(request.getParameter("no"));
 
-            ResultSet rs = pstmt.executeQuery();
-
-            if (rs.next()) {
-                out.printf("제목: %s\n", rs.getString("title"));
-                out.printf("내용: %s\n", rs.getString("conts"));
-                out.printf("등록일: %s\n", rs.getDate("regdt"));
-                out.printf("조회수: %d\n", rs.getInt("vwcnt"));
-            } else {
-                out.printf("'%s'의 게시물 정보가 없습니다.\n", request.getParameter("no"));
+            try (PreparedStatement pstmt = con.prepareStatement("update ex_board set vwcnt = vwcnt + 1 where no=?")) {
+                pstmt.setInt(1, no);
+                pstmt.executeUpdate();
+            } catch (Exception e) {
             }
-            rs.close();
+
+            try (PreparedStatement pstmt = con
+                    .prepareStatement("select no,title,conts,regdt,vwcnt from ex_board where no=?")) {
+                pstmt.setInt(1, no);
+
+                ResultSet rs = pstmt.executeQuery();
+
+                if (rs.next()) {
+                    out.printf("번호: %d\n", rs.getInt("no"));
+                    out.printf("제목: %s\n", rs.getString("title"));
+                    out.printf("내용: %s\n", rs.getString("conts"));
+                    out.printf("등록일: %s\n", rs.getDate("regdt"));
+                    out.printf("조회수: %d\n", rs.getInt("vwcnt"));
+                } else {
+                    out.printf("'%s'번의 게시물 정보가 없습니다.\n", request.getParameter("no"));
+                }
+                rs.close();
+            } catch (Exception e) {
+            }
 
         } catch (Exception e) {
             e.printStackTrace(); // for developer
@@ -137,7 +147,7 @@ public class BoardController extends GenericController<Board> {
             } else {
                 out.printf("'%s'의 게시물 정보가 없습니다.\n", request.getParameter("no"));
             }
-            
+
         } catch (Exception e) {
             e.printStackTrace();
             out.println(e.getMessage());
