@@ -49,6 +49,15 @@ repositories {
 dependencies {
     // This dependency is found on compile classpath of this component and consumers.
     compile 'com.google.guava:guava:22.0'
+    
+    // MySQL DBMS의 JDBC Driver
+    compile group: 'mysql', name: 'mysql-connector-java', version: '5.1.44'
+    
+    // Reflection 작업을 도와주는 라이브러리
+    compile group: 'org.reflections', name: 'reflections', version: '0.9.11'
+    
+    //Spring IoC 컨테이너 라이브러리
+    compile 'org.springframework:spring-context:5.0.2.RELEASE'
 
     // Use JUnit test framework
     testCompile 'junit:junit:4.12'
