@@ -9,19 +9,19 @@ public class DataSource {
 
     private String driverClassName;
     private String url;
-    private String userName;
+    private String username;
     private String password;
 
     private ArrayList<Connection> list = new ArrayList<>();
 
     synchronized public Connection getConnection() throws SQLException, ClassNotFoundException {
+
         if (list.size() > 0) {
             return list.remove(0);
         }
 
         Class.forName(this.driverClassName);
-
-        return DriverManager.getConnection(this.url, this.userName, this.password);
+        return DriverManager.getConnection(this.url, this.username, this.password);
     }
 
     synchronized public void returnConnection(Connection con) {
@@ -31,7 +31,17 @@ public class DataSource {
             if (con.isClosed())
                 return;
             list.add(con);
+
         } catch (Exception e) {
+        }
+    }
+
+    synchronized public void close() {
+        for (Connection con : list) {
+            try {
+                con.close();
+            } catch (Exception e) {
+            }
         }
     }
 
@@ -51,12 +61,12 @@ public class DataSource {
         this.url = url;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getUsername() {
+        return username;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getPassword() {

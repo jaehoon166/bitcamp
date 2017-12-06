@@ -1,59 +1,79 @@
 package java100.app.control;
 
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import javax.servlet.Servlet;
+import javax.servlet.ServletConfig;
+import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
+import java100.app.AppInitServlet;
 import java100.app.dao.ScoreDao;
 import java100.app.domain.Score;
 
-@Component("/score")
-public class ScoreController implements Controller {
+@WebServlet(urlPatterns = "/score/*")
+public class ScoreServlet implements Servlet {
+    ServletConfig servletConfig;
 
-    @Autowired
     ScoreDao scoreDao;
-    
+
     @Override
     public void destroy() {
     }
 
     @Override
-    public void init() {
-        try {
-            Class.forName("com.mysql.jdbc.Driver");
-
-        } catch (ClassNotFoundException ex) {
-            throw new RuntimeException("JDBC 드라이버 클래스를 찾을 수 없습니다.");
-        }
+    public void init(ServletConfig config) throws ServletException {
+        this.servletConfig = config;
+        scoreDao = AppInitServlet.iocContainer.getBean(ScoreDao.class);
     }
 
     @Override
-    public void execute(Request request, Response response) {
+    public ServletConfig getServletConfig() {
+        return this.servletConfig;
+    }
 
-        switch (request.getMenuPath()) {
-        case "/score/add":
-            this.doAdd(request, response);
+    @Override
+    public String getServletInfo() {
+        return "성적관리";
+    }
+
+    @Override
+    public void service(ServletRequest request, ServletResponse response) throws ServletException, IOException {
+
+        HttpServletRequest httpRequest = (HttpServletRequest) request;
+        HttpServletResponse httpResponse = (HttpServletResponse) response;
+
+        httpResponse.setContentType("text/plain;charset=UTF-8");
+        switch (httpRequest.getPathInfo()) {
+        case "/add":
+            this.doAdd(httpRequest, httpResponse);
             break;
-        case "/score/list":
-            this.doList(request, response);
+        case "/list":
+            this.doList(httpRequest, httpResponse);
             break;
-        case "/score/view":
-            this.doView(request, response);
+        case "/view":
+            this.doView(httpRequest, httpResponse);
             break;
-        case "/score/update":
-            this.doUpdate(request, response);
+        case "/update":
+            this.doUpdate(httpRequest, httpResponse);
             break;
-        case "/score/delete":
-            this.doDelete(request, response);
+        case "/delete":
+            this.doDelete(httpRequest, httpResponse);
             break;
         default:
             response.getWriter().println("해당 명령이 없습니다.");
         }
     }
 
-    private void doDelete(Request request, Response response) {
+    private void doDelete(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+
         PrintWriter out = response.getWriter();
         out.println("[성적 삭제]");
 
@@ -66,12 +86,13 @@ public class ScoreController implements Controller {
                 out.printf("'%d'의 성적 정보가 없습니다.\n", no);
             }
         } catch (Exception e) {
-            e.printStackTrace(); // for developer
-            out.println(e.getMessage()); // for user
+            e.printStackTrace();
+            out.println(e.getMessage());
         }
     }
 
-    private void doUpdate(Request request, Response response) {
+    private void doUpdate(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
         PrintWriter out = response.getWriter();
         out.println("[성적 변경]");
 
@@ -94,7 +115,7 @@ public class ScoreController implements Controller {
         }
     }
 
-    private void doView(Request request, Response response) {
+    private void doView(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         PrintWriter out = response.getWriter();
 
         out.println("[성적 상세 정보]");
@@ -116,12 +137,12 @@ public class ScoreController implements Controller {
             }
 
         } catch (Exception e) {
-            e.printStackTrace(); // for developer
-            out.println(e.getMessage()); // for user
+            e.printStackTrace();
+            out.println(e.getMessage());
         }
     }
 
-    private void doList(Request request, Response response) {
+    private void doList(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         PrintWriter out = response.getWriter();
         out.println("[성적 목록]");
 
@@ -132,12 +153,12 @@ public class ScoreController implements Controller {
             }
 
         } catch (Exception e) {
-            e.printStackTrace(); // for developer
-            out.println(e.getMessage()); // for user
+            e.printStackTrace();
+            out.println(e.getMessage());
         }
     }
 
-    private void doAdd(Request request, Response response) {
+    private void doAdd(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         PrintWriter out = response.getWriter();
         out.println("[성적 등록]");
 
